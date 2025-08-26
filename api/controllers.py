@@ -1,6 +1,6 @@
 from flask import request, jsonify
-from utils import send_response_erro
-from dto import (
+from api.utils import send_response_erro
+from api.dto import (
     UserRegisterDto,
     UserUpdateDto,
     UserFilterDto,

@@ -1,5 +1,5 @@
-from utils import read_users, write_users
-from dto import (
+from api.utils import read_users, write_users
+from api.dto import (
     UserRegisterDto, # Registra novo usuário
     UserFilterDto, # Filtra usuário pelo ID usuário
     UserResponseDto, # Resposta do Usuário

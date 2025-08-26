@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from controllers import UserController
+from api.controllers import UserController
 
 user_controller = UserController()
 

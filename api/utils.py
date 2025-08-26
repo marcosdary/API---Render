@@ -1,4 +1,4 @@
-from config import PATH_DATAS
+from api.config import PATH_DATAS
 from json import load, dump
 from flask import jsonify
 
