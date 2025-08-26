@@ -6,7 +6,7 @@ from api.dto import (
     UserFilterDto,
     UserLoginDto
 )
-from service import UserService
+from api.service import UserService
 
 user_service = UserService()
 
