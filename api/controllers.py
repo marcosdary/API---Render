@@ -7,6 +7,13 @@ from api.dto import (
     UserLoginDto
 )
 from api.service import UserService
+from api.exceptions import (
+    UnprocessableEntity, 
+    EntityValidationError, 
+    InvalidFields, 
+    NotFoundError,
+    DuplicateReviewError
+)
 
 user_service = UserService()
 
@@ -23,8 +30,19 @@ class UserController:
             )
             user_response_dto = user_service.add_user(user_register_dto)
             return jsonify(user_response_dto.model_dump()), 201
-        except ValueError as e:
-            return send_response_erro(type(e).__name__, str(e), 401)
+        
+        except DuplicateReviewError as e:
+            return send_response_erro(type(e).__name__, str(e), 409)
+
+        except UnprocessableEntity as e:
+            return send_response_erro(type(e).__name__, str(e), 422)
+        
+        except EntityValidationError as e:
+            return send_response_erro(type(e).__name__, str(e), 400)
+
+        except InvalidFields as e:
+            return send_response_erro(type(e).__name__, str(e), 400)
+
         except Exception as e:
             return send_response_erro(type(e).__name__, str(e), 500)
         
@@ -37,8 +55,19 @@ class UserController:
             )
             user_response_dto = user_service.login_user(user_login_dto)
             return jsonify(user_response_dto.model_dump()), 200
-        except ValueError as e:
-            return send_response_erro(type(e).__name__, str(e), 401)
+        
+        except InvalidFields as e:
+            return send_response_erro(type(e).__name__, str(e), 400)
+        
+        except UnprocessableEntity as e:
+            return send_response_erro(type(e).__name__, str(e), 422)
+        
+        except EntityValidationError as e:
+            return send_response_erro(type(e).__name__, str(e), 400)
+        
+        except NotFoundError as e:
+            return send_response_erro(type(e).__name__, str(e), 404)
+
         except Exception as e:
             return send_response_erro(type(e).__name__, str(e), 500)
 
@@ -50,8 +79,19 @@ class UserController:
             )
             user_response_dto = user_service.select_user(user_filter_dto)
             return jsonify(user_response_dto.model_dump()), 200
-        except ValueError as e:
-            return send_response_erro(type(e).__name__, str(e), 401)
+        
+        except InvalidFields as e:
+            return send_response_erro(type(e).__name__, str(e), 400)
+        
+        except UnprocessableEntity as e:
+            return send_response_erro(type(e).__name__, str(e), 422)
+        
+        except EntityValidationError as e:
+            return send_response_erro(type(e).__name__, str(e), 400)
+        
+        except NotFoundError as e:
+            return send_response_erro(type(e).__name__, str(e), 404)
+        
         except Exception as e:
             return send_response_erro(type(e).__name__, str(e), 500)
        
@@ -69,8 +109,22 @@ class UserController:
             )
             user_response_dto = user_service.update_user(user_update_dto)
             return jsonify(user_response_dto.model_dump()), 200
-        except ValueError as e:
-            return send_response_erro(type(e).__name__, str(e), 401)
+        
+        except DuplicateReviewError as e:
+            return send_response_erro(type(e).__name__, str(e), 409)
+        
+        except NotFoundError as e:
+            return send_response_erro(type(e).__name__, str(e), 404)
+        
+        except UnprocessableEntity as e:
+            return send_response_erro(type(e).__name__, str(e), 422)
+        
+        except EntityValidationError as e:
+            return send_response_erro(type(e).__name__, str(e), 400)
+
+        except InvalidFields as e:
+            return send_response_erro(type(e).__name__, str(e), 400)
+
         except Exception as e:
             return send_response_erro(type(e).__name__, str(e), 500)
 
@@ -82,8 +136,19 @@ class UserController:
             )
             user_service.delete_user(user_filter_dto)
             return jsonify({"message": "Sucesso em apagar o usuário"}), 200
-        except ValueError as e:
-            return send_response_erro(type(e).__name__, str(e), 401)
+        
+        except InvalidFields as e:
+            return send_response_erro(type(e).__name__, str(e), 400)
+        
+        except UnprocessableEntity as e:
+            return send_response_erro(type(e).__name__, str(e), 422)
+        
+        except EntityValidationError as e:
+            return send_response_erro(type(e).__name__, str(e), 400)
+        
+        except NotFoundError as e:
+            return send_response_erro(type(e).__name__, str(e), 404)
+        
         except Exception as e:
             return send_response_erro(type(e).__name__, str(e), 500)
     
