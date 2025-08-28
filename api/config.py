@@ -9,7 +9,10 @@ load_dotenv()
 # Configurações internas para conexão com banco de dados PostgreSQL 
 URL = getenv("url_postgree")
 
-ENGINE = create_engine(URL)
+ENGINE = create_engine(
+    URL,
+    connect_args={"options": "-c inet_family=4"}
+)
 
 session_fab = sessionmaker(
     autocommit=False,
