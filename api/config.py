@@ -6,7 +6,8 @@ from sqlalchemy.orm import sessionmaker
 load_dotenv()
 
 # Configurações internas para conexão com banco de dados PostgreSQL 
-URL = "postgresql+psycopg2://postgres:VUqNHCvXRZBPrd3P@db.lqvnmtcbsidpeorqjcme.supabase.co:5432/postgres?sslmode=require"
+URL = getenv("url_postgree")
+"&options=-c%20inet_family%3Dipv4"
 ENGINE = create_engine(
     URL
 )
